@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Login from './Login';
 
+
 function App() {
   const [email, setEmail] = useState('');
 
@@ -17,7 +18,7 @@ function App() {
   }, []);
 
   function logout() {
-    axios.post('http://localhost:4000/logout', {}, {withCredentials:true})
+    axios.post('http://localhost:4000/logout', {}, { withCredentials: true })
       .then(() => setEmail(''));
   }
 
@@ -26,23 +27,22 @@ function App() {
 
     <UserContext.Provider value={{ email, setEmail }}>
       <BrowserRouter>
-        <div>
-          {
-            !!email && (
-              <div> logged in as {email} <button onClick={() => logout()}> Log out</button></div>
-              
-            )
-          }
-          {!email && (
-            <div>Not logged in</div>
-          )}
-        </div>
+
+        {
+          !!email && (
+            <div> logged in as {email} <button onClick={() => logout()}> Log out</button></div>
+
+          )
+        }
+        {!email && (
+          <div>Not logged in</div>
+        )}
+
         <div>
           <Link to={'/'}>Home</Link> |
-          <Link to="{'./login'}">Login</Link> |
-          <Link to="{'./register'}"> Register</Link>
+          <Link to={'/login'}>Login</Link> |
+          <Link to={'/register'}> Register</Link>
         </div>
-
 
         <Routes>
           <Route exact path={'/register'} element={<Register />} />
