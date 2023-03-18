@@ -27,29 +27,18 @@ function App() {
 
     <UserContext.Provider value={{ email, setEmail }}>
       <BrowserRouter>
-
-        {
-          !!email && (
-            <div> logged in as {email} <button onClick={() => logout()}> Log out</button></div>
-
-          )
-        }
-        {!email && (
-          <div>Not logged in</div>
-        )}
-
-        <div>
-          <Link to={'/'}>Home</Link> |
-          <Link to={'/login'}>Login</Link> |
-          <Link to={'/register'}> Register</Link>
-        </div>
-
-        <Routes>
-          <Route exact path={'/register'} element={<Register />} />
-          <Route exact path={'/login'} element={<Login />} />
-        </Routes>
-
-
+      <nav>
+          <Link to={'/'}>Home</Link>
+          {!email && (
+            <>
+              <Link to={'/login'}>Login</Link>
+              <Link to={'/register'}>Register</Link>
+            </>
+          )}
+          {!!email && (
+            <a onClick={e => {e.preventDefault();logout();}}>Logout</a>
+          )}
+        </nav>
       </BrowserRouter>
     </UserContext.Provider>
 

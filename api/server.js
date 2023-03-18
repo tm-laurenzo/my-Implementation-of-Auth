@@ -8,7 +8,7 @@ import cors from 'cors';
 import jwt from 'jsonwebtoken';
 
 const secret = 'secret123';
-await mongoose.connect('mongodb://localhost:27017/auth', 
+await mongoose.connect('mongodb://localhost:27017/auth-todo', 
           {useNewUrlParser:true, useUnifiedTopology:true});
 const db = mongoose.connection;
 db.on('error', console.log);
