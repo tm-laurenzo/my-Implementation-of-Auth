@@ -39,6 +39,13 @@ function App() {
             <a onClick={e => {e.preventDefault();logout();}}>Logout</a>
           )}
         </nav>
+        <main>
+          <Routes>
+            
+            <Route exact path={'/register'} component={Register} />
+            <Route exact path={'/login'} component={Login} />
+          </Routes>
+        </main>
       </BrowserRouter>
     </UserContext.Provider>
 
