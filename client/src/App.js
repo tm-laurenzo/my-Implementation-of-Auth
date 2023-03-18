@@ -5,6 +5,7 @@ import UserContext from './UserContext';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Login from './Login';
+import Home from './Home';
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
 
     <UserContext.Provider value={{ email, setEmail }}>
       <BrowserRouter>
-      <nav>
+        <nav>
           <Link to={'/'}>Home</Link>
           {!email && (
             <>
@@ -36,14 +37,14 @@ function App() {
             </>
           )}
           {!!email && (
-            <a onClick={e => {e.preventDefault();logout();}}>Logout</a>
+            <a href onClick={e => { e.preventDefault(); logout(); }}>Logout</a>
           )}
         </nav>
         <main>
           <Routes>
-            
-            <Route exact path={'/register'} component={Register} />
-            <Route exact path={'/login'} component={Login} />
+            <Route exact path={'/'} element={<Home/>} />
+            <Route exact path={'/register'} element={<Register />} />
+            <Route exact path={'/login'} element={<Login />} />
           </Routes>
         </main>
       </BrowserRouter>
@@ -54,3 +55,5 @@ function App() {
 }
 
 export default App;
+
+

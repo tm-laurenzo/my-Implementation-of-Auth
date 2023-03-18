@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import User from "./models/User.js";
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
+import Todo from './models/Todo.js';
 
 const secret = 'secret123';
 await mongoose.connect('mongodb://localhost:27017/auth-todo', 
@@ -81,4 +82,25 @@ app.post('/login', (req, res) => {
 app.post('/logout', (req, res) => {
   res.cookie('token', '').send();
 });
+
+app.get('/todos', (req,res) => {
+  const payload = jwt.verify(req.cookies.token, secret);
+  Todo.where({user:new mongoose.Types.ObjectId(payload.id)})
+    .find((err,todos) => {
+      res.json(todos);
+    })
+});
+
+app.put('/todos', (req,res) => {
+  const payload = jwt.verify(req.cookies.token, secret);
+  const todo = new Todo({
+    text:req.body.text,
+    done:false,
+    user:new mongoose.Types.ObjectId(payload.id),
+  });
+  todo.save().then(todo => {
+    res.json(todo);
+  })
+});
+
 app.listen( 4000);
